@@ -1,0 +1,14 @@
+Package: CalculusOfFactors
+Type: Package
+Title: Some useful factor functions
+Version: 0.0.1
+Date: 2017-12-06
+Author: Alexander Zwart
+Maintainer: Alexander Zwart <Alec.Zwart@csiro.au>
+Description: Provides some useful functions for comparing factors,
+    e.g. factor equivalence, and 'finer' and 'coarser' comparisons, as
+    per R.A.Bailey's 'calculus of factors'.
+License: GPL-3 + file LICENSE
+LazyLoad: yes
+LazyData: yes
+Suggests: testthat
