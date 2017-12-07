@@ -67,25 +67,27 @@ test_that("Same labels, different level encoding",
           })
 
 
+## Defining tt1, etc in this way should prevent testthat from reporting
+## warnings (no need, since the warnings are explicitly tested for).
 g <- factor(c(1,1,1,3,3,3,2,2,2,3,3,3,3),
             levels=1:6,
             labels=LETTERS[1:6])
 ##
 test_that("Unused levels, same level encoding",
           {
-            expect_that(fct_equiv(f,g),is_true())
-            expect_that(fct_equiv(g,f),is_true())  ## Commutative
-            expect_that(fct_equiv(f,g),
+            expect_that(tt1 <- fct_equiv(f,g),
                         gives_warning("Factors f and g have different numbers of levels"))
-            expect_that(fct_equiv(g,f),
+            expect_that(tt2 <- fct_equiv(g,f),
                         gives_warning("Factors g and f have different numbers of levels"))
+            expect_that(tt1,is_true())
+            expect_that(tt2,is_true())  ## Commutative
             ##
-            expect_that(fct_equiv(f,g,ordered=TRUE),is_true())
-            expect_that(fct_equiv(g,f,ordered=TRUE),is_true())  ## Commutative
-            expect_that(fct_equiv(f,g,ordered=TRUE),
+            expect_that(tt3 <- fct_equiv(f,g,ordered=TRUE),
                         gives_warning("Factors f and g have different numbers of levels"))
-            expect_that(fct_equiv(g,f,ordered=TRUE),
+            expect_that(tt4 <- fct_equiv(g,f,ordered=TRUE),
                         gives_warning("Factors g and f have different numbers of levels"))
+            expect_that(tt3,is_true())
+            expect_that(tt4,is_true())  ## Commutative
           })
 
 g <- factor(c(1,1,1,3,3,3,2,2,2,3,3,3,3),
@@ -93,19 +95,19 @@ g <- factor(c(1,1,1,3,3,3,2,2,2,3,3,3,3),
 ##
 test_that("Unused labels, different level labels, same level encoding",
           {
-            expect_that(fct_equiv(f,g),is_true())
-            expect_that(fct_equiv(g,f),is_true())  ## Commutative
-            expect_that(fct_equiv(f,g),
+            expect_that(tt1 <- fct_equiv(f,g),
                         gives_warning("Factors f and g have different numbers of levels"))
-            expect_that(fct_equiv(g,f),
+            expect_that(tt2 <- fct_equiv(g,f),
                         gives_warning("Factors g and f have different numbers of levels"))
+            expect_that(tt1,is_true())
+            expect_that(tt2,is_true())  ## Commutative
             ##
-            expect_that(fct_equiv(f,g,ordered=TRUE),is_true())
-            expect_that(fct_equiv(g,f,ordered=TRUE),is_true())  ## Commutative
-            expect_that(fct_equiv(f,g,ordered=TRUE),
+            expect_that(tt3 <- fct_equiv(f,g,ordered=TRUE),
                         gives_warning("Factors f and g have different numbers of levels"))
-            expect_that(fct_equiv(g,f,ordered=TRUE),
+            expect_that(tt4 <- fct_equiv(g,f,ordered=TRUE),
                         gives_warning("Factors g and f have different numbers of levels"))
+            expect_that(tt3,is_true())
+            expect_that(tt4,is_true())  ## Commutative
           })
 
 
@@ -114,19 +116,19 @@ g <- factor(c(1,1,1,3,3,3,2,2,2,3,3,3,3),
 ##
 test_that("Unused labels, same ones _used_, different level encoding",
           {
-            expect_that(fct_equiv(f,g),is_true())
-            expect_that(fct_equiv(g,f),is_true())  ## Commutative
-            expect_that(fct_equiv(f,g),
+            expect_that(tt1 <- fct_equiv(f,g),
                         gives_warning("Factors f and g have different numbers of levels"))
-            expect_that(fct_equiv(g,f),
+            expect_that(tt2 <- fct_equiv(g,f),
                         gives_warning("Factors g and f have different numbers of levels"))
+            expect_that(tt1,is_true())
+            expect_that(tt2,is_true())  ## Commutative
             ##
-            expect_that(fct_equiv(f,g,ordered=TRUE),is_false())
-            expect_that(fct_equiv(g,f,ordered=TRUE),is_false())  ## Commutative
-            expect_that(fct_equiv(f,g,ordered=TRUE),
+            expect_that(tt3 <- fct_equiv(f,g,ordered=TRUE),
                         gives_warning("Factors f and g have different numbers of levels"))
-            expect_that(fct_equiv(g,f,ordered=TRUE),
+            expect_that(tt4 <- fct_equiv(g,f,ordered=TRUE),
                         gives_warning("Factors g and f have different numbers of levels"))
+            expect_that(tt3,is_false())
+            expect_that(tt4,is_false())  ## Commutative
           })
 
 
@@ -145,7 +147,7 @@ test_that("One or both factors contain NAs",
 
 g <- factor(rep(NA,length(f)),levels=1:6)
 ##
-test_that("One or both factors contain only NAs",
+test_that("One or both factors contain ONLY NAs",
           {
             expect_that(is.na(fct_equiv(f,g)),is_true())
             expect_that(is.na(fct_equiv(g,f)),is_true())  ## Commutative
