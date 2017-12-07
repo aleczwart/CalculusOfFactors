@@ -45,7 +45,28 @@ containing \code{NA} values will return an \code{NA} result from
 \code{fct_equiv}.
 }
 \examples{
+## Define a factor f:
+f <- factor(c(1,1,1,3,3,3,2,2,2,3,3,3,3),
+           levels=1:3,
+           labels=LETTERS[1:3])
+f
 
+## Factor g has different labels to f:
+g <- factor(c(1,1,1,3,3,3,2,2,2,3,3,3,3),
+            levels = 1:3,
+            labels=LETTERS[5:7])
+g
+
+## ...but represents the same partition, hence is equivalent:
+f \%is_equiv_to\% g
+
+## See the help for function fct_equiv() for further examples and
+## discussion.
+
+}
+\seealso{
+Binary operator \code{\link{\%is_ordered_equiv_to\%}} for
+testing ordered equivalence, and function \code{\link{fct_equiv}}.
 }
 \author{
 Alexander Zwart <alec.zwart at csiro.au>

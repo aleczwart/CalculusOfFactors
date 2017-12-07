@@ -37,14 +37,42 @@ thing to remember is that two factors \code{f} and \code{g} are
 regarded as 'ordered equivalent' if and only if
 \code{as.integer(f)==as.integer(g)} is \code{TRUE}.  See the
 examples below for an illustration of the ways in which unused
-levels may, or may not affect ordered equivalence status.
+levels may, or may not affect ordered equivalence status.  In
+general, some care is needed when dealing with factors containing
+unused levels.  Function \code{\link{droplevels}} can be applied
+to a factor to remove any unused levels (and this author generally
+prefers to work with factors containing no unuused levels), but do
+bear in mind that use of \code{\link{droplevels}} may change the
+level order encoding of a factor...
 
 Note that, consistent with R's general philosophy, factors
 containing \code{NA} values will return an \code{NA} result from
 \code{fct_equiv}.
 }
 \examples{
+## Define a factor f:
+f <- factor(c(1,1,1,3,3,3,2,2,2,3,3,3,3),
+           levels=1:3,
+           labels=LETTERS[1:3])
+f
 
+## Factor g has different labels to f:
+g <- factor(c(1,1,1,3,3,3,2,2,2,3,3,3,3),
+            levels = 1:3,
+            labels=LETTERS[5:7])
+g
+
+## ...but represents the same partition, AND has the same level
+## order encoding, hence is ordered equivalent:
+f \%is_ordered_equiv_to\% g
+
+## See the help for function fct_equiv() for further examples and
+## discussion.
+
+}
+\seealso{
+Binary operator \code{\link{\%is_equiv_to\%}} for testing
+unordered equivalence, and function \code{\link{fct_equiv}}.
 }
 \author{
 Alexander Zwart <alec.zwart at csiro.au>
