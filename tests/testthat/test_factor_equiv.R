@@ -159,6 +159,25 @@ test_that("One or both factors contain ONLY NAs",
           })
 
 
+## Bugfix - nested factor relationships were erroneously regarded as
+## cases of equivalent factors. Here's a check, to make sure that
+## doesn't happen again:
+f <- factor(c(1,1,2,2,3,3,4,4,5,5,6),levels=1:6,labels=LETTERS[1:6])
+g <- factor(c(1,1,1,1,2,2,2,2,3,3,3),levels=1:3,labels=LETTERS[7:9])
+test_that("Nested relationships not confused for equivalence",
+          {
+            expect_that(is.na(suppressWarnings(fct_equiv(f,g))),
+                        is_false())
+            expect_that(is.na(suppressWarnings(fct_equiv(g,f))),
+                        is_false())
+            expect_that(is.na(suppressWarnings(fct_equiv(f,g,ordered=TRUE))),
+                        is_false())
+            expect_that(is.na(suppressWarnings(fct_equiv(g,f,ordered=TRUE))),
+                        is_false())
+          })
+
+
+
 ######################################################################
 ## Clean up
 ######################################################################

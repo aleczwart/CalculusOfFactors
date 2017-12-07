@@ -133,8 +133,8 @@
 ##' ## what the author feels is likely to be more useful in practice (and
 ##' ## I admit there's a possibility that I could be wrong...)
 ##'
-fct_equiv <- function(f,g,ordered=FALSE){
-
+fct_equiv <- function(f,g,ordered=FALSE)
+{
   fnm <- deparse(substitute(f))
   gnm <- deparse(substitute(g))
   stopifnot(is.factor(f))
@@ -153,14 +153,16 @@ fct_equiv <- function(f,g,ordered=FALSE){
   ## Use of droplevels() ensures that unused levels are not included
   ## in the tabulation (and hence are ignored in deciding unordered
   ## equivalence):
-  rslt <- all(apply(table(droplevels(f),droplevels(g)),1,
-                    function(x) sum(x > 0))==1)
+  tt <- table(droplevels(f),droplevels(g))
+  rslt <- all(apply(tt,1,function(x) sum(x > 0))==1) &
+   all(apply(tt,2,function(x) sum(x > 0))==1)
   ## Function droplevels() is NOT used here - we don't want to
   ## re-encode the factor levels prior to testing for _order_
   ## equivalence - the key determination of whether order equivalence
   ## exists is whether f and g produce equal vectors upon conversion
   ## to integer...
   if (ordered) rslt <- rslt & all(as.integer(f)==as.integer(g))
+  ## TODO: Is 'rslt &' above redundant?
   ##
   return(rslt)
 }
