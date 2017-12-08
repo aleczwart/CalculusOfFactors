@@ -36,9 +36,9 @@ The weaker condition of \emph{unordered} equivalence
 order encodings need not be identical between the two factors.
 
 The stronger condition of \emph{ordered} equivalence
-(\code{ordered=TRUE}) requires that the level order
-\emph{encodings} be identical between the two factors, and hence
-that \code{as.integer(f)} is identical to \code{as.integer(g)}.
+(\code{ordered=TRUE}) requires that the level order encodings be
+identical between the two factors, and hence that
+\code{as.integer(f)} is identical to \code{as.integer(g)}.
 
 Regarding unused levels: If one or other of the factors has unused
 levels, these will be \emph{ignored} in testing for unordered
@@ -50,11 +50,18 @@ remember is that two factors \code{f} and \code{g} are regarded as
 'ordered equivalent' if and only if
 \code{as.integer(f)==as.integer(g)} is \code{TRUE}.  See the
 examples below for an illustration of the ways in which unused
-levels may, or may not affect ordered equivalence status.
-\code{fct_equiv} will give a warning when factors have different
-numbers of levels - you can wrap the call to \code{fct_equiv} in
-use \code{\link{suppressWarnings}} if you do not wish to see these
-warnings.
+levels may, or may not, affect ordered equivalence status.  In
+general, some care is needed when dealing with factors containing
+unused levels. Function \code{\link{droplevels}} can be applied to
+a factor to remove any unused levels (and this author generally
+prefers to work with factors that have been stripped of any unused
+levels), but do bear in mind that use of \code{\link{droplevels}}
+may change the level order encoding of a factor...
+
+\code{fct_equiv} will produce warning messages when one or both
+factors contain unused levels. You can wrap the call to
+\code{fct_equiv} in use \code{\link{suppressWarnings}} if you do
+not wish to see these warnings.
 
 Note that, consistent with R's general philosophy, factors
 containing \code{NA} values will return an \code{NA} result from
@@ -96,21 +103,22 @@ fct_equiv(f,g)
 ## ...but not ordered equivalent:
 fct_equiv(f,g,ordered=TRUE)
 
-## Now let g represent the same partition as f, but with more levels:
+## Now let g represent the same partition as f, but with extra,
+## unused levels:
 g <- factor(c(1,1,1,3,3,3,2,2,2,3,3,3,3),
             levels = 1:5,
             labels=LETTERS[5:9])
 g
 
-## When testing (unordered) equivalence, extra levels in g are
-## ignored, but a warning is given:
+## When testing (unordered) equivalence, the unused levels in g
+## are ignored, but a warning is given:
 fct_equiv(f,g)
 
 ## Use suppressWarnings() if you don't want to see the warnings
 suppressWarnings(fct_equiv(f,g))
 
 ## The above definition of g is also ordered equivalent, since the
-## extra levels in g defined above do not affect the level order
+## unused levels in g defined above do not affect the level order
 ## encoding:
 as.integer(f)
 as.integer(g)
@@ -134,7 +142,7 @@ fct_equiv(f,g,ordered=TRUE)
 ## Note therefore, that the definition of ordered equivalence used by
 ## fct_equiv() is stronger than one might think is required, since the
 ## integer encodings of f and g, though different, do imply the same
-## ordering of the levels (since, for f and g defined above,
+## ordering of the levels (for f and g defined above,
 ## \\code{as.integer(g) == as.integer(f) + 1}).  The definition of
 ## ordered equivalence used in fct_equiv() has been chosen based on
 ## what the author feels is likely to be more useful in practice (and

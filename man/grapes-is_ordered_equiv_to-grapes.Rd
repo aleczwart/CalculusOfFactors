@@ -36,14 +36,15 @@ upon where the unused levels occur in the level order.  The key
 thing to remember is that two factors \code{f} and \code{g} are
 regarded as 'ordered equivalent' if and only if
 \code{as.integer(f)==as.integer(g)} is \code{TRUE}.  See the
-examples below for an illustration of the ways in which unused
-levels may, or may not affect ordered equivalence status.  In
-general, some care is needed when dealing with factors containing
-unused levels.  Function \code{\link{droplevels}} can be applied
-to a factor to remove any unused levels (and this author generally
-prefers to work with factors containing no unuused levels), but do
-bear in mind that use of \code{\link{droplevels}} may change the
-level order encoding of a factor...
+examples for \code{\link{fct_equiv}} an illustration of the ways
+in which unused levels may, or may not affect ordered equivalence
+status.  In general, some care is needed when dealing with factors
+containing unused levels. Function \code{\link{droplevels}} can be
+applied to a factor to remove any unused levels (and this author
+generally prefers to work with factors that have been stripped of
+any unused levels), but do bear in mind that use of
+\code{\link{droplevels}} may change the level order encoding of a
+factor...
 
 Note that, consistent with R's general philosophy, factors
 containing \code{NA} values will return an \code{NA} result from

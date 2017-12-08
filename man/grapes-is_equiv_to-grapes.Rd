@@ -15,30 +15,27 @@ f \%is_equiv_to\% g
 Logical \code{TRUE} or \code{FALSE} value.
 }
 \description{
-Compare factors \code{f} and \code{g} for 'unordered equivalence'
-meaning that the two factors define the same partition/grouping,
-regardless of differences in level labels between the
+Compare two factors and for 'unordered equivalence' meaning that
+the two factors define the same partition/grouping, regardless of
+differences in level labels between the
 factors. \code{\%is_equiv_to\%} is a binary operator version of
 \code{\link{fct_equiv}} with specified argument
 \code{ordered=FALSE}.
 }
 \details{
 \code{\%is_equiv_to\%} provides a binary operator version of the
-function \code{\link{fct_equiv}} to test for 'unordered equivalence'
-between two factors, meaning that the two factors define the same
+function \code{\link{fct_equiv}} with argument
+\code{ordered=FALSE}, to test for 'unordered equivalence' between
+two factors, meaning that the two factors define the same
 partition/grouping, regardless of differences in level labels
-between the two factors.
-
-\code{\%is_equiv_to\%} specifically tests the weaker condition of
-\emph{unordered} equivalence (\code{ordered=FALSE}, the default)
-which does \emph{not} require that the factor level order
-encodings be identical for the two factors to be regarded as
-equivalent.
+between the two factors.  Unordered equivalence does not require
+that the factor levels order encodings be identical.
 
 Regarding unused levels: If one or other of the factors has unused
 levels, these will be \emph{ignored} in testing for unordered
-equivalence - factors are compared on the basis of the levels that
-are used, only.
+equivalence - factors are compared only on the basis of the levels
+that are \emph{used}.  \code{\%is_equiv_to\%} will give warning
+messages if one or other of the factors has unused levels.
 
 Note that, consistent with R's general philosophy, factors
 containing \code{NA} values will return an \code{NA} result from

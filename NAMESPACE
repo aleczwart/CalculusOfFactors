@@ -3,3 +3,4 @@
 export("%is_equiv_to%")
 export("%is_ordered_equiv_to%")
 export(fct_equiv)
+export(has_unused_levels)

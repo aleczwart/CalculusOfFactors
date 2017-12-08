@@ -76,16 +76,16 @@ g <- factor(c(1,1,1,3,3,3,2,2,2,3,3,3,3),
 test_that("Unused levels, same level encoding",
           {
             expect_that(tt1 <- fct_equiv(f,g),
-                        gives_warning("Factors f and g have different numbers of levels"))
+                        gives_warning("Factor g contains unused levels"))
             expect_that(tt2 <- fct_equiv(g,f),
-                        gives_warning("Factors g and f have different numbers of levels"))
+                        gives_warning("Factor g contains unused levels"))
             expect_that(tt1,is_true())
             expect_that(tt2,is_true())  ## Commutative
             ##
             expect_that(tt3 <- fct_equiv(f,g,ordered=TRUE),
-                        gives_warning("Factors f and g have different numbers of levels"))
+                        gives_warning("Factor g contains unused levels"))
             expect_that(tt4 <- fct_equiv(g,f,ordered=TRUE),
-                        gives_warning("Factors g and f have different numbers of levels"))
+                        gives_warning("Factor g contains unused levels"))
             expect_that(tt3,is_true())
             expect_that(tt4,is_true())  ## Commutative
           })
@@ -96,16 +96,16 @@ g <- factor(c(1,1,1,3,3,3,2,2,2,3,3,3,3),
 test_that("Unused labels, different level labels, same level encoding",
           {
             expect_that(tt1 <- fct_equiv(f,g),
-                        gives_warning("Factors f and g have different numbers of levels"))
+                        gives_warning("Factor g contains unused levels"))
             expect_that(tt2 <- fct_equiv(g,f),
-                        gives_warning("Factors g and f have different numbers of levels"))
+                        gives_warning("Factor g contains unused levels"))
             expect_that(tt1,is_true())
             expect_that(tt2,is_true())  ## Commutative
             ##
             expect_that(tt3 <- fct_equiv(f,g,ordered=TRUE),
-                        gives_warning("Factors f and g have different numbers of levels"))
+                        gives_warning("Factor g contains unused levels"))
             expect_that(tt4 <- fct_equiv(g,f,ordered=TRUE),
-                        gives_warning("Factors g and f have different numbers of levels"))
+                        gives_warning("Factor g contains unused levels"))
             expect_that(tt3,is_true())
             expect_that(tt4,is_true())  ## Commutative
           })
@@ -117,16 +117,16 @@ g <- factor(c(1,1,1,3,3,3,2,2,2,3,3,3,3),
 test_that("Unused labels, same ones _used_, different level encoding",
           {
             expect_that(tt1 <- fct_equiv(f,g),
-                        gives_warning("Factors f and g have different numbers of levels"))
+                        gives_warning("Factor g contains unused levels"))
             expect_that(tt2 <- fct_equiv(g,f),
-                        gives_warning("Factors g and f have different numbers of levels"))
+                        gives_warning("Factor g contains unused levels"))
             expect_that(tt1,is_true())
             expect_that(tt2,is_true())  ## Commutative
             ##
             expect_that(tt3 <- fct_equiv(f,g,ordered=TRUE),
-                        gives_warning("Factors f and g have different numbers of levels"))
+                        gives_warning("Factor g contains unused levels"))
             expect_that(tt4 <- fct_equiv(g,f,ordered=TRUE),
-                        gives_warning("Factors g and f have different numbers of levels"))
+                        gives_warning("Factor g contains unused levels"))
             expect_that(tt3,is_false())
             expect_that(tt4,is_false())  ## Commutative
           })
@@ -175,7 +175,6 @@ test_that("Nested relationships not confused for equivalence",
             expect_that(is.na(suppressWarnings(fct_equiv(g,f,ordered=TRUE))),
                         is_false())
           })
-
 
 
 ######################################################################
