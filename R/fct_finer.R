@@ -1,4 +1,11 @@
 
+## TODO check what warning messages are given re unused levels - if I
+## removed the suppressWarnings() around the fct_equiv() call, is that
+## sufficient to give _correct_ warnings?  does the
+## deparse(substitute()) technique give the correct factor names when
+## fct_equiv is called from within fct_finer, or within fct_finer
+## within fct_coarser?
+
 ##' Test whether a factor is \emph{finer} or \emph{coarser} than
 ##' another factor.  Bailey (2008) defines factor \code{f} to be
 ##' \emph{finer} than factor \code{g} when each distinct level of
@@ -63,6 +70,8 @@
 ##'
 fct_finer <- function(f,g)
   {
+    fnm <- deparse(substitute(f))
+    gnm <- deparse(substitute(g))
     stopifnot(is.factor(f))
     stopifnot(is.factor(g))
     stopifnot(length(f)==length(g))
@@ -76,19 +85,65 @@ fct_finer <- function(f,g)
      all(apply(tt,2,function(x) sum(x > 0))>=1) &
       !suppressWarnings(fct_equiv(f,g))
     ##
+    if (has_unused_levels(f))
+      warning(paste0("Factor ",fnm," contains unused levels"))
+    if (has_unused_levels(g))
+      warning(paste0("Factor ",gnm," contains unused levels"))
+    ##
     return(rslt)
   }
 
 ##' @rdname fct_finer
 ##' @export
-fct_coarser <- function(f,g) return(fct_finer(g,f))
+fct_coarser <- function(f,g)
+  {
+    fnm <- deparse(substitute(f))
+    gnm <- deparse(substitute(g))
+    stopifnot(is.factor(f))
+    stopifnot(is.factor(g))
+    stopifnot(length(f)==length(g))
+    ##
+    if (has_unused_levels(f))
+      warning(paste0("Factor ",fnm," contains unused levels"))
+    if (has_unused_levels(g))
+      warning(paste0("Factor ",gnm," contains unused levels"))
+    ##
+    return(suppressWarnings(fct_finer(g,f)))
+  }
 
 ##' @rdname fct_finer
 ##' @export
-`%is_finer_than%` <- function(f,g) fct_finer(f,g)
+`%is_finer_than%` <- function(f,g)
+    {
+    fnm <- deparse(substitute(f))
+    gnm <- deparse(substitute(g))
+    stopifnot(is.factor(f))
+    stopifnot(is.factor(g))
+    stopifnot(length(f)==length(g))
+    ##
+    if (has_unused_levels(f))
+      warning(paste0("Factor ",fnm," contains unused levels"))
+    if (has_unused_levels(g))
+      warning(paste0("Factor ",gnm," contains unused levels"))
+    ##
+    return(suppressWarnings(fct_finer(f,g)))
+  }
 
 ##' @rdname fct_finer
 ##' @export
-`%is_coarser_than%` <- function(f,g) fct_finer(g,f)
-
+`%is_coarser_than%` <- function(f,g)
+  {
+    fnm <- deparse(substitute(f))
+    gnm <- deparse(substitute(g))
+    stopifnot(is.factor(f))
+    stopifnot(is.factor(g))
+    stopifnot(length(f)==length(g))
+    ##
+    if (has_unused_levels(f))
+      warning(paste0("Factor ",fnm," contains unused levels"))
+    if (has_unused_levels(g))
+      warning(paste0("Factor ",gnm," contains unused levels"))
+    ##
+    return(suppressWarnings(fct_finer(g,f)))
+  }
 
