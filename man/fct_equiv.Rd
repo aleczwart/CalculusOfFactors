@@ -149,10 +149,11 @@ fct_equiv(f,g,ordered=TRUE)
 ## I admit there's a possibility that I could be wrong...)
 
 }
+\author{
+Alexander Zwart <alec.zwart at csiro.au>
+}
 \seealso{
 Binary operator versions \code{\link{\%is_equiv_to\%}}
 and \code{\link{\%is_ordered_equiv_to\%}}.
 }
-\author{
-Alexander Zwart <alec.zwart at csiro.au>
-}
+

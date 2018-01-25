@@ -18,3 +18,4 @@ Logical test of whether a factor has unused levels.
 \author{
 Alexander Zwart <alec.zwart at csiro.au>
 }
+

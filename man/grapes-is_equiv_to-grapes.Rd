@@ -61,10 +61,11 @@ f \%is_equiv_to\% g
 ## discussion.
 
 }
+\author{
+Alexander Zwart <alec.zwart at csiro.au>
+}
 \seealso{
 Binary operator \code{\link{\%is_ordered_equiv_to\%}} for
 testing ordered equivalence, and function \code{\link{fct_equiv}}.
 }
-\author{
-Alexander Zwart <alec.zwart at csiro.au>
-}
+
